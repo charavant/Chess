@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChessLogic.Moves
+namespace ChessLogic
 {
   public class NormalMove : Move
   {
@@ -22,8 +22,10 @@ namespace ChessLogic.Moves
 
     public override void Execute(Board board)
     {
-      board[ToPos] = board[FromPos];
+      Piece piece = board[FromPos];
+      board[ToPos] = piece;
       board[FromPos] = null;
+      piece.HasMoved = true;
     }
   }
 }
