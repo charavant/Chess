@@ -1,10 +1,10 @@
 ﻿
 namespace ChessLogic
 {
-  public class King(Player color) : Piece
+  public class King : Piece
   {
     public override PieceType Type => PieceType.King;
-    public override Player Color { get; } = color;
+    public override Player Color { get; }
     private static readonly Direction[] dirs =
     [
       Direction.Up, 
@@ -16,6 +16,11 @@ namespace ChessLogic
       Direction.DownLeft, 
       Direction.DownRight
     ];
+
+    public King(Player color)
+    {
+      Color = color;
+    }
 
     public override King Copy()
     {
@@ -53,7 +58,7 @@ namespace ChessLogic
       return MovePositions(from, board).Any(to =>
       {
         Piece piece = board[to];
-        return piece != null && piece.Type == PieceType.King;
+        return piece != null && piece.Type == PieceType.King && piece.Color == Color.Opponent();
       });
     }
   }
