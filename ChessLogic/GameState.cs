@@ -19,7 +19,8 @@
       }
 
       Piece piece = Board[pos];
-      return piece.GetMoves(Board, pos);
+      IEnumerable<Move> moveCandidates =  piece.GetMoves(Board, pos);
+      return moveCandidates.Where(move => move.IsLegal(Board));
     }
 
     public void MakeMove(Move move)

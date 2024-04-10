@@ -19,10 +19,7 @@ namespace ChessLogic
 
     public override King Copy()
     {
-      King copy = new(Color)
-      {
-        HasMoved = HasMoved
-      };
+      var copy = new King(Color) { HasMoved = HasMoved };
       return copy;
     }
 
@@ -36,7 +33,7 @@ namespace ChessLogic
           continue;
         }
 
-        if(board.IsEmpty(to) || board[to].Color != Color)
+        if (board.IsEmpty(to) || board[to].Color != Color)
         {
           yield return to;
         }
@@ -49,6 +46,15 @@ namespace ChessLogic
       {
         yield return new NormalMove(from, to);
       }
+    }
+
+    public override bool CanCaptureOpponentKing(Position from, Board board)
+    {
+      return MovePositions(from, board).Any(to =>
+      {
+        Piece piece = board[to];
+        return piece != null && piece.Type == PieceType.King;
+      });
     }
   }
 }
