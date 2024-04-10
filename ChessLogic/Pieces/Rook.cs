@@ -1,27 +1,24 @@
 ﻿
 namespace ChessLogic
 {
-  public class Rook : Piece
+  public class Rook(Player color) : Piece
   {
     public override PieceType Type => PieceType.Rook;
-    public override Player Color { get; }
-    private static Direction[] dirs = new Direction[]
-    { 
+    public override Player Color { get; } = color;
+    private static Direction[] dirs =
+    [
       Direction.Up, 
       Direction.Down, 
       Direction.Left, 
       Direction.Right 
-    };
-
-    public Rook(Player color)
-    {
-      Color = color;
-    }
+    ];
 
     public override Rook Copy()
     {
-      Rook copy = new Rook(Color);
-      copy.HasMoved = HasMoved;
+      Rook copy = new(Color)
+      {
+        HasMoved = HasMoved
+      };
       return copy;
     }
 

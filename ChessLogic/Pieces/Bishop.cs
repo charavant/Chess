@@ -1,26 +1,23 @@
 ﻿namespace ChessLogic
 {
-  public class Bishop : Piece
+  public class Bishop(Player color) : Piece
   {
     public override PieceType Type => PieceType.Bishop;
-    public override Player Color { get; }
-    private static Direction[] dirs = new Direction[]
-    { 
+    public override Player Color { get; } = color;
+    private static Direction[] dirs =
+    [
       Direction.UpLeft, 
       Direction.UpRight, 
       Direction.DownLeft, 
       Direction.DownRight 
-    };
-
-    public Bishop(Player color)
-    {
-      Color = color;
-    }
+    ];
 
     public override Bishop Copy()
     {
-      Bishop copy = new Bishop(Color);
-      copy.HasMoved = HasMoved;
+      Bishop copy = new(Color)
+      {
+        HasMoved = HasMoved
+      };
       return copy;
     }
 

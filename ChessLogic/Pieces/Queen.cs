@@ -1,11 +1,11 @@
 ﻿namespace ChessLogic
 {
-  public class Queen : Piece
+  public class Queen(Player color) : Piece
   {
     public override PieceType Type => PieceType.Queen;
-    public override Player Color { get; }
-    private static Direction[] dirs = new Direction[]
-    { 
+    public override Player Color { get; } = color;
+    private static Direction[] dirs =
+    [
       Direction.Up, 
       Direction.Down, 
       Direction.Left, 
@@ -14,16 +14,14 @@
       Direction.UpRight, 
       Direction.DownLeft, 
       Direction.DownRight 
-    };
-    public Queen(Player color)
-    {
-      Color = color;
-    }
+    ];
 
     public override Queen Copy()
     {
-      Queen copy = new Queen(Color);
-      copy.HasMoved = HasMoved;
+      Queen copy = new(Color)
+      {
+        HasMoved = HasMoved
+      };
       return copy;
     }
 

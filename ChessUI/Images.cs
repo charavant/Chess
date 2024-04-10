@@ -26,7 +26,7 @@ namespace ChessUI
       {PieceType.King, LoadImage("Assets/KingB.png")}
     };
 
-    private static ImageSource LoadImage(string filepath)
+    private static BitmapImage LoadImage(string filepath)
     {
       return new BitmapImage(new Uri(filepath, UriKind.Relative));
     }
