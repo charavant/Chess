@@ -2,14 +2,14 @@
 {
   public class Direction
   {
-    public readonly static Direction Up = new(-1, 0);
-    public readonly static Direction Down = new(1, 0);
-    public readonly static Direction Left = new(0, -1);
-    public readonly static Direction Right = new(0, 1);
-    public readonly static Direction UpLeft = Up + Left;
-    public readonly static Direction UpRight = Up + Right;
-    public readonly static Direction DownLeft = Right + Left;
-    public readonly static Direction DownRight = Down + Right;
+    public readonly static Direction North = new(-1, 0);
+    public readonly static Direction South = new(1, 0);
+    public readonly static Direction East = new(0, 1);
+    public readonly static Direction West = new(0, -1);
+    public readonly static Direction NorthEast = North + East;
+    public readonly static Direction NorthWest = North + West;
+    public readonly static Direction SouthEast = South + East;
+    public readonly static Direction SouthWest = South + West;
     
     public int RowDelta { get; }
     public int ColumnDelta { get; }

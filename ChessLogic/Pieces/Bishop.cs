@@ -7,28 +7,26 @@
     
     private static Direction[] dirs =
     [
-      Direction.UpLeft, 
-      Direction.UpRight, 
-      Direction.DownLeft, 
-      Direction.DownRight 
+      Direction.NorthEast,
+      Direction.NorthWest,
+      Direction.SouthEast,
+      Direction.SouthWest
     ];
 
     public Bishop(Player color)
     {
       Color = color;
     }
-    public override Bishop Copy()
+    public override Piece Copy()
     {
-      Bishop copy = new(Color)
-      {
-        HasMoved = HasMoved
-      };
+      Bishop copy = new Bishop(Color);
+      copy.HasMoved = HasMoved;
       return copy;
     }
 
     public override IEnumerable<Move> GetMoves(Board board, Position from)
     {
-      return MovePositionInDirs(from, board, dirs).Select(to => new NormalMove(from, to));
+      return MovePositionsInDirs(from, board, dirs).Select(to => new NormalMove(from, to));
     }
   }
 }

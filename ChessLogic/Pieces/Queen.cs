@@ -6,17 +6,17 @@
     public override Player Color { get; } = color;
     private static Direction[] dirs =
     [
-      Direction.Up, 
-      Direction.Down, 
-      Direction.Left, 
-      Direction.Right,
-      Direction.UpLeft, 
-      Direction.UpRight, 
-      Direction.DownLeft, 
-      Direction.DownRight 
+      Direction.North, 
+      Direction.South, 
+      Direction.East, 
+      Direction.West,
+      Direction.NorthEast, 
+      Direction.NorthWest, 
+      Direction.SouthEast, 
+      Direction.SouthWest
     ];
 
-    public override Queen Copy()
+    public override Piece Copy()
     {
       Queen copy = new(Color)
       {
@@ -27,7 +27,7 @@
 
     public override IEnumerable<Move> GetMoves(Board board, Position from)
     {
-      return MovePositionInDirs(from, board, dirs).Select(to => new NormalMove(from, to));
+      return MovePositionsInDirs(from, board, dirs).Select(to => new NormalMove(from, to));
     }
   }
 }

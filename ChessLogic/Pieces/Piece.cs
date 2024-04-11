@@ -32,12 +32,10 @@ namespace ChessLogic
         yield break;
       }
     }
-
-    protected IEnumerable<Position> MovePositionInDirs(Position from, Board board, Direction[] dirs)
+    protected IEnumerable<Position> MovePositionsInDirs(Position from, Board board, Direction[] dirs)
     {
       return dirs.SelectMany(dir => MovePositionInDir(from, board, dir));
     }
-
     public virtual bool CanCaptureOpponentKing(Position from, Board board)
     {
       return GetMoves(board, from).Any(move => 

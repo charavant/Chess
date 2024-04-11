@@ -6,7 +6,7 @@ namespace ChessLogic
     public override PieceType Type => PieceType.Knight;
     public override Player Color { get; } = color;
 
-    public override Knight Copy()
+    public override Piece Copy()
     {
       Knight copy = new(Color)
       {
@@ -17,9 +17,9 @@ namespace ChessLogic
 
     private static IEnumerable<Position> PotentialToPositions(Position from)
     {
-      foreach(Direction vDir in new Direction[] { Direction.Up, Direction.Down })
+      foreach(Direction vDir in new Direction[] { Direction.North, Direction.South })
       {
-        foreach(Direction hDir in new Direction[] { Direction.Left, Direction.Right })
+        foreach(Direction hDir in new Direction[] { Direction.East, Direction.West })
         {
           yield return from + vDir * 2 + hDir;
           yield return from + hDir * 2 + vDir;

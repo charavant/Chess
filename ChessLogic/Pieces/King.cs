@@ -5,16 +5,17 @@ namespace ChessLogic
   {
     public override PieceType Type => PieceType.King;
     public override Player Color { get; }
+    
     private static readonly Direction[] dirs =
     [
-      Direction.Up, 
-      Direction.Down, 
-      Direction.Left, 
-      Direction.Right,
-      Direction.UpLeft, 
-      Direction.UpRight, 
-      Direction.DownLeft, 
-      Direction.DownRight
+      Direction.North, 
+      Direction.South, 
+      Direction.East, 
+      Direction.West,
+      Direction.NorthEast, 
+      Direction.NorthWest, 
+      Direction.SouthEast, 
+      Direction.SouthWest
     ];
 
     public King(Player color)
@@ -22,9 +23,10 @@ namespace ChessLogic
       Color = color;
     }
 
-    public override King Copy()
+    public override Piece Copy()
     {
-      var copy = new King(Color) { HasMoved = HasMoved };
+      var copy = new King(Color);
+      copy.HasMoved = HasMoved;
       return copy;
     }
 
@@ -33,7 +35,7 @@ namespace ChessLogic
       foreach (Direction dir in dirs)
       {
         Position to = from + dir;
-        if (Board.IsInside(to))
+        if (!Board.IsInside(to))
         {
           continue;
         }

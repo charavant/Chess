@@ -13,11 +13,11 @@ namespace ChessLogic
 
       if (color == Player.White)
       {
-        forward = Direction.Up;
+        forward = Direction.North;
       }
       else if (color == Player.Black)
       {
-        forward = Direction.Down;
+        forward = Direction.South;
       }
     }
 
@@ -58,7 +58,7 @@ namespace ChessLogic
 
     private IEnumerable<Move> DiagonalMoves(Position from, Board board)
     {
-      foreach (Direction dir in new Direction[] { Direction.Left, Direction.Right })
+      foreach (Direction dir in new Direction[] { Direction.East, Direction.West })
       {
         Position pos = from + forward + dir;
 
