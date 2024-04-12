@@ -1,4 +1,6 @@
-﻿namespace ChessLogic
+﻿using ChessLogic.Moves;
+
+namespace ChessLogic
 {
   public class Board
   {
@@ -170,6 +172,77 @@
     private Position FindPiece(Player color, PieceType type)
     {
       return PiecePositionsFor(color).First(pos => this[pos].Type == type);
+    }
+
+    private bool IsUnMovedKingAndRook(Position kingPos, Position rookPos)
+    {
+      if(IsEmpty(kingPos) || IsEmpty(rookPos))
+      {
+        return false;
+      }
+
+      Piece king = this[kingPos];
+      Piece rook = this[rookPos];
+
+      return king.Type == PieceType.King && rook.Type == PieceType.Rook && !king.HasMoved && !rook.HasMoved;
+    }
+
+    public bool CastleRightKS(Player player)
+    {
+      return player switch
+      {
+        Player.White => IsUnMovedKingAndRook(new Position(7, 4), new Position(7, 7)),
+        Player.Black => IsUnMovedKingAndRook(new Position(0, 4), new Position(0, 7)),
+        _ => false
+      };
+    }
+
+    public bool CastleRightQS(Player player)
+    {
+      return player switch
+      {
+        Player.White => IsUnMovedKingAndRook(new Position(7, 4), new Position(7, 0)),
+        Player.Black => IsUnMovedKingAndRook(new Position(0, 4), new Position(0, 0)),
+        _ => false
+      };
+    }
+
+    private bool HasPawnInPosition(Player player, Position[] pawnPositions, Position skipPos)
+    {
+      foreach(Position pos in pawnPositions)
+      {
+        Piece piece = this[pos];
+        if(piece == null || piece.Color != player || piece.Type != PieceType.Pawn)
+        {
+          continue;
+        }
+
+        EnPassant move = new EnPassant(pos, skipPos);
+        if(move.IsLegal(this))
+        {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    public bool CanCaptureEnPassant(Player player)
+    {
+      Position skipPos = GetPawnSkipPosition(player.Opponent());
+
+      if(skipPos == null)
+      {
+        return false;
+      }
+
+      Position[] pawnPositions = player switch
+      {
+        Player.White => new Position[] { skipPos + Direction.SouthWest, skipPos + Direction.SouthEast },
+        Player.Black => new Position[] { skipPos + Direction.NorthWest, skipPos + Direction.NorthEast },
+        _ => Array.Empty<Position>()
+      };
+
+      return HasPawnInPosition(player, pawnPositions, skipPos);
     }
   }
 }
